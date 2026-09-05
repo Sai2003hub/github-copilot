@@ -1,18 +1,104 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play Sudoku with a responsive web interface">
   <title>Sudoku Game</title>
-  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Ctext y='110' font-size='110'%3E🧩%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-  <h1>Sudoku Game</h1>
-  <div id="sudoku-board"></div>
-  <div class="controls">
-    <button id="new-game">New Game</button>
-    <button id="check-solution">Check Solution</button>
-    <span id="message"></span>
-  </div>
-  <script src="/static/main.js"></script>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="app-header" role="banner">
+    <div>
+      <p class="eyebrow">Accessible puzzle</p>
+      <h1>Sudoku Game</h1>
+    </div>
+    <div class="top-controls" aria-label="Game controls">
+      <label for="difficulty">Difficulty</label>
+      <select id="difficulty" name="difficulty">
+        {% for difficulty in difficulties %}
+          <option value="{{ difficulty }}"{% if difficulty == selected_difficulty %} selected{% endif %}>
+            {{ difficulty|title }}
+          </option>
+        {% endfor %}
+      </select>
+      <button type="button" id="new-game" class="btn btn--primary">New Game</button>
+      <button type="button" id="theme-toggle" class="btn btn--ghost" aria-pressed="false" aria-label="Toggle color theme">☀️</button>
+    </div>
+  </header>
+
+  <main id="main-content" class="app-grid" role="main">
+    <aside class="sidebar sidebar-left" aria-label="Game tools">
+      <section class="card" aria-labelledby="timer-heading">
+        <h2 id="timer-heading">Timer</h2>
+        <p id="timer" class="stat-value">00:00</p>
+      </section>
+
+      <section class="card" aria-labelledby="stats-heading">
+        <h2 id="stats-heading">Hints used</h2>
+        <p id="hint-count" class="stat-value">0</p>
+      </section>
+
+      <section class="card" aria-labelledby="actions-heading">
+        <h2 id="actions-heading">Actions</h2>
+        <div class="button-stack">
+          <button type="button" id="hint-btn" class="btn btn--accent">Hint</button>
+          <button type="button" id="check-btn" class="btn btn--accent">Check</button>
+          <button type="button" id="notes-btn" class="btn btn--ghost" aria-pressed="false">Notes</button>
+          <button type="button" id="erase-btn" class="btn btn--ghost">Erase</button>
+          <button type="button" id="solve-btn" class="btn btn--ghost">Solve</button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="number-pad-heading">
+        <h2 id="number-pad-heading">Number pad</h2>
+        <div class="number-pad" role="group" aria-label="Number pad">
+          {% for value in range(1, 10) %}
+            <button type="button" class="number-pad__btn" data-value="{{ value }}">{{ value }}</button>
+          {% endfor %}
+        </div>
+      </section>
+    </aside>
+
+    <section class="board-panel" aria-labelledby="board-heading">
+      <h2 id="board-heading" class="visually-hidden">Sudoku board</h2>
+      <div id="board" class="board-shell" role="group" aria-label="Sudoku board">
+        <div id="sudoku-board" class="sudoku-grid" role="grid" aria-label="Sudoku board"></div>
+      </div>
+      <p id="message" class="message" aria-live="polite"></p>
+    </section>
+
+    <aside class="sidebar sidebar-right" aria-label="Leaderboard and scores">
+      <section class="card" aria-labelledby="leaderboard-heading">
+        <h2 id="leaderboard-heading">Top 10</h2>
+        <ol id="leaderboard-list" class="leaderboard-list"></ol>
+        <button type="button" id="clear-leaderboard" class="btn btn--warning">Clear scores</button>
+      </section>
+    </aside>
+  </main>
+
+  <dialog id="win-dialog" class="win-dialog" aria-labelledby="win-dialog-title">
+    <form id="win-form" method="dialog">
+      <h2 id="win-dialog-title">You solved it!</h2>
+      <p>Difficulty: <span id="win-difficulty"></span></p>
+      <p>Time: <span id="win-time"></span></p>
+      <p>Hints used: <span id="win-hints"></span></p>
+      <label for="player-name">Name</label>
+      <input id="player-name" name="player-name" type="text" autocomplete="name" maxlength="20">
+      <div class="dialog-actions">
+        <button type="submit" name="action" value="save" class="btn btn--primary">Save score</button>
+        <button type="submit" name="action" value="skip" class="btn btn--ghost">Skip</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="app-footer">
+    <a href="https://github.com/github-copilot" target="_blank" rel="noreferrer">View source repository</a>
+  </footer>
+
+  <script type="module" src="/static/js/app.js"></script>
 </body>
 </html>

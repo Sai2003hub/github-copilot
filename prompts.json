@@ -1,0 +1,44 @@
+[
+  {
+    "id": "bootstrap-pytest-flask",
+    "title": "Bootstrap pytest for a Flask project",
+    "prompt": "Set up a pytest configuration for a Flask application, add smoke and route tests, and keep the test suite fast and focused on real behavior.",
+    "when_to_use": "When creating or expanding a Flask project and you need a reliable automated test foundation.",
+    "watch_out_for": "Avoid mocking the Flask app when a real test client can verify routes and JSON responses."
+  },
+  {
+    "id": "generate-unique-sudoku",
+    "title": "Generate a uniquely-solvable Sudoku puzzle",
+    "prompt": "Build a Sudoku generator that creates a full valid board, removes cells one by one, and only keeps removals when the puzzle still has exactly one solution.",
+    "when_to_use": "When implementing puzzle generation that must preserve a unique solution.",
+    "watch_out_for": "Do not stop after a single pass; validate uniqueness after each carve attempt to avoid ambiguous puzzles."
+  },
+  {
+    "id": "leaderboard-localstorage",
+    "title": "Top 10 leaderboard in localStorage",
+    "prompt": "Create a simple Top 10 leaderboard stored in localStorage with add, render, and clear actions.",
+    "when_to_use": "When the app needs a lightweight local score board without a backend.",
+    "watch_out_for": "Keep the data shape stable and cap entries to 10 so the UI stays predictable."
+  },
+  {
+    "id": "alternating-3x3-square-css",
+    "title": "Alternating 3x3 square CSS",
+    "prompt": "Style a 9x9 Sudoku board so the 3x3 boxes alternate background colors while retaining accessible contrast.",
+    "when_to_use": "When building the board visual grid and you want a polished, readable layout.",
+    "watch_out_for": "Use CSS custom properties rather than hard-coded colors to keep theming consistent."
+  },
+  {
+    "id": "hint-button-fill-lock",
+    "title": "Hint button that fills and locks one cell",
+    "prompt": "Add a hint button that reveals one empty cell, applies the value locally, and marks the cell as locked so it cannot be overwritten.",
+    "when_to_use": "When the UI needs a hint mechanic that is stateless and client-side.",
+    "watch_out_for": "Do not add server-side hint state; treat hints as a local visual effect and keep the cell locked."
+  },
+  {
+    "id": "rejected-stateful-server-session",
+    "title": "Rejected suggestion: stateful server-side game session",
+    "prompt": "Suggest a stateful server-side game session for the Sudoku app, then reject it and document why a stateless design is better.",
+    "when_to_use": "When a design suggestion would add unnecessary server state and complexity.",
+    "watch_out_for": "Include the rejected prompt, why it was rejected, and the lesson learned in the reusable template."
+  }
+]
