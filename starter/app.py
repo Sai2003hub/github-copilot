@@ -68,7 +68,7 @@ def api_check() -> Any:
     incorrect = []
     for row in range(9):
         for col in range(9):
-            if board[row][col] != 0 and board[row][col] != solution[row][col]:
+            if board[row][col] != solution[row][col]:
                 incorrect.append([row, col])
     return jsonify({"incorrect": incorrect})
 
